@@ -8,7 +8,7 @@ public class Url {
 	private String lng; //long url
 	@Id
 	private String srt; //short url
-	
+	private Integer count;
 	
 	public Url() {
 		super();
@@ -16,12 +16,12 @@ public class Url {
 	
 	
 	
-	public Url(String lng, String srt) {
+	public Url(String lng, String srt, Integer count) {
 		super();
 		this.lng = lng;
 		this.srt = srt;
+		this.count = count;
 	}
-
 
 
 	public String getLng() {
@@ -37,12 +37,22 @@ public class Url {
 		this.srt = srt;
 	}
 	
+	public Integer getCount() {
+		return count;
+	}
+
+
+
+	public void setCount(Integer count) {
+		this.count = count;
+	}
+
+
+
 	@Override
 	public String toString() {
-		return "Url [lng=" + lng + ", srt=" + srt + "]";
+		return "Url [lng=" + lng + ", srt=" + srt + ", count=" + count + "]";
 	}
-	
-	
 	
 	
 }

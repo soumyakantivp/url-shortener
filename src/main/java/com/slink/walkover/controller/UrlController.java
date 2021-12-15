@@ -34,8 +34,11 @@ public class UrlController {
 	public Url getLong(@PathVariable String srt, HttpServletResponse response) throws IOException{
 		String lngUrl = "def";
 		Url url = service.getUrl(srt);
-		if(url != null)
+		if(url != null) {
 			lngUrl = url.getLng();
+		}
+			
+		
 		System.out.println(lngUrl);
 		response.sendRedirect(lngUrl);
 		return url;

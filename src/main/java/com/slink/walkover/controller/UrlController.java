@@ -1,39 +1,46 @@
 package com.slink.walkover.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 import com.slink.walkover.model.Url;
 import com.slink.walkover.service.UrlService;
 
 
-@RestController
+@Controller
 public class UrlController {
 	@Autowired
 	UrlService service;
 
-	@RequestMapping(value = "/slink/create-short",method =RequestMethod.POST)
-	public void createShort(@RequestParam("url")String url){
-		String lng = "";
-		lng = url;
-		if(lng != null)
-			service.createShortUrl(lng);
+	@RequestMapping(value = "/create-short",method =RequestMethod.GET)
+	public String createShort(Model model, @RequestParam("url")String url){
+		List<Url> list = new ArrayList<Url>();
+		if(url != null) {
+			Url newUrl = service.createShortUrl(url);
+			if(newUrl != null)
+				list.add(newUrl);
+		}
 		else
 			System.out.println("request denied");
+		model.addAttribute("urls", list);
+		return "index";
 	}
 	
 	@RequestMapping(value = "/slink/{srt}",method =RequestMethod.GET)
-	public Url getLong(@PathVariable String srt, HttpServletResponse response) throws IOException{
+	public void getLong(@PathVariable String srt, HttpServletResponse response) throws IOException{
 		String lngUrl = "def";
-		Url url = service.getUrl(srt);
+		Url url = service.getUrl("http://localhost:8080/slink/"+srt);
 		if(url != null) {
 			lngUrl = url.getLng();
 		}
@@ -41,6 +48,5 @@ public class UrlController {
 		
 		System.out.println(lngUrl);
 		response.sendRedirect(lngUrl);
-		return url;
 	}
 }

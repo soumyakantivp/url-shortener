@@ -15,10 +15,11 @@ public class UrlService {
 	@Autowired
 	UrlRepo repo;
 	
-	public void createShortUrl(String lng) {
-		String srt = "1";//UUID.randomUUID().toString().substring(0,4)+(100+Math.round(Math.random()*1000));
+	public Url createShortUrl(String lng) {
+		String srt = "http://localhost:8080/slink/"+UUID.randomUUID().toString().substring(0,4)+(100+Math.round(Math.random()*1000));
 		Url url = new Url(lng, srt, 0);
 		repo.save(url);
+		return url;
 	}
 	
 	public Url getUrl(String srt) {

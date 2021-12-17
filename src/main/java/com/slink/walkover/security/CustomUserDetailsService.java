@@ -30,7 +30,6 @@ public class CustomUserDetailsService implements UserDetailsService{
 			new UsernameNotFoundException("User not Found :: "+username)
 		);
 		
-		
 		return new CustomUserDetails(user.get());
 		
 		//return null;

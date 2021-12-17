@@ -32,7 +32,7 @@
                 </thead>
                 <tbody>
                     <tr th:each="url : ${urls}">
-                        <td><span th:text="${url.srt}"></span></td>
+                        <td><a th:href="${url.srt}"><span th:text="${url.srt}"></span></a></td>
                         <td><span th:text="${url.lng}"></span></td>
                         <td><span th:text="${url.count}"></span></td>
                     </tr>

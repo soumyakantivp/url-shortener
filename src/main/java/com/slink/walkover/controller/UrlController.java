@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.slink.walkover.model.Url;
+import com.slink.walkover.security.CustomUserDetails;
 import com.slink.walkover.service.UrlService;
 
 
@@ -27,18 +28,21 @@ public class UrlController {
 	UrlService service;
 
 	@RequestMapping(value = "/home",method =RequestMethod.GET)
-	public String index(){
-		
+	public String index(ModelMap model){
+		//getLoggedInUserName(model);
 		return "home";
 	}
 	
 	@RequestMapping(value = "/create-short",method =RequestMethod.GET)
-	public String createShort(Model model, @RequestParam("url")String url){
-		List<Url> list = new ArrayList<Url>();
+	public String createShort(ModelMap modelmap, Model model, @RequestParam("url")String url){
+		CustomUserDetails cus = getLoggedInUserName(modelmap);
+		List<Url> list = cus.getUrls();
 		if(url != null) {
 			Url newUrl = service.createShortUrl(url);
-			if(newUrl != null)
+			if(newUrl != null) {
 				list.add(newUrl);
+				cus.setUrls(list);
+			}
 		}
 		else
 			System.out.println("request denied");
@@ -59,13 +63,14 @@ public class UrlController {
 		response.sendRedirect(lngUrl);
 	}
 	
-	private String getLoggedInUserName(ModelMap model) {
+	private CustomUserDetails getLoggedInUserName(ModelMap model) {
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-		if (principal instanceof UserDetails) {
-			return ((UserDetails) principal).getUsername();
+		if (principal instanceof CustomUserDetails) {
+			//System.out.println(((CustomUserDetails) principal).getUrls());
+			return ((CustomUserDetails) principal);
 		}
 
-		return principal.toString();
+		return null;
 	}
 }

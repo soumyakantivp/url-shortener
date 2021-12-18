@@ -10,6 +10,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.slink.walkover.model.Url;
 import com.slink.walkover.model.User;
 
 
@@ -17,6 +18,7 @@ public class CustomUserDetails implements UserDetails {
 
 	private String username;
 	private String password;
+	private List<Url> urls;
 	private boolean active;
 
 	private List<GrantedAuthority> authotities;
@@ -26,6 +28,7 @@ public class CustomUserDetails implements UserDetails {
 	CustomUserDetails(User user){
 		this.username = user.getUsername();
 		this.password = user.getPassword();
+		this.urls = user.getUrls();
 		this.active = user.isActive();
 		
 		this.authotities = Stream.of(user.getRoles().split(",")).map(x->{
@@ -35,6 +38,15 @@ public class CustomUserDetails implements UserDetails {
 		
 	}
 
+	
+	public List<Url> getUrls() {
+		return urls;
+	}
+
+
+	public void setUrls(List<Url> urls) {
+		this.urls = urls;
+	}
 
 
 	@Override

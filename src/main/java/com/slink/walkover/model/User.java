@@ -2,10 +2,13 @@ package com.slink.walkover.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -23,8 +26,19 @@ public class User {
 	private boolean active;
 	
 	private String roles;
+	
+	@OneToMany(fetch = FetchType.EAGER, mappedBy="srt", cascade = CascadeType.ALL)
+	private List<Url> urls;
+	
 
 	
+	public List<Url> getUrls() {
+		return urls;
+	}
+
+	public void setUrls(List<Url> urls) {
+		this.urls = urls;
+	}
 
 	public int getId() {
 		return id;

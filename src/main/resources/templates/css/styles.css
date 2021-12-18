@@ -11518,3 +11518,20 @@ html {
   float: left;
   display: flex;
 }
+
+.input-panel{
+  display: flex;
+  float: left;
+}
+
+.register-form{
+  padding: 10px;
+  width: 100%;
+  max-width: 500px;
+}
+
+.input{
+  margin-bottom: 20px;
+  width: 100%;
+
+}

@@ -28,8 +28,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 	
 	@Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests().antMatchers("/login", "/h2-console/**").permitAll()
-                .antMatchers("/", "/create-short", "/slink/**").access("hasRole('USER')")
+        http.authorizeRequests().antMatchers("/", "/login", "/h2-console/**").permitAll()
+                .antMatchers("/home","/create-short", "/slink/**").access("hasRole('USER')")
                 .antMatchers("/*manage/**").access("hasRole('ADMIN')")
                 .and()
                 .formLogin();

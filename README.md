@@ -11,6 +11,10 @@ This website allows you to convert long url into short url and track its activit
 7. MAVEN
 8. H2
 
+# Team Intro
+Sudipta Chakrabarty - Designer, Planner, Front-end developer
+Soumya Kanti Banerjee - Designer, Planner, Back-end developer 
+
 # Balsamiq Design
 index page https://share.balsamiq.com/c/oa75Y2phkfUfcwQAHdpBvp.png
 register page https://share.balsamiq.com/c/p2iTFpvAtTQyWARAi8mFXK.png

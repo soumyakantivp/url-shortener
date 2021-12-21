@@ -1,6 +1,7 @@
 package com.slink.walkover.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -37,16 +38,20 @@ public class UrlController {
 	public String createShort(HttpServletRequest r, ModelMap modelmap, Model model, @RequestParam("url")String url){
 		CustomUserDetails cus = getLoggedInUserName(modelmap);
 		List<Url> list = cus.getUrls();
+		List<Url> updated = new ArrayList<Url>();
+		for(Url u: list) {
+			updated.add(service.getUrl(u.getSrt(), false));
+		}
 		if(url != null) {
 			Url newUrl = service.createShortUrl(r, url);
 			if(newUrl != null) {
-				list.add(newUrl);
-				cus.setUrls(list);
+				updated.add(newUrl);
+				cus.setUrls(updated);
 			}
 		}
 		else
 			System.out.println("request denied");
-		model.addAttribute("urls", list);
+		model.addAttribute("urls", updated);
 		return "home";
 	}
 	
@@ -57,7 +62,7 @@ public class UrlController {
 		        .replacePath(null)
 		        .build()
 		        .toUriString();
-		Url url = service.getUrl(baseUrl+"/slink/"+srt);
+		Url url = service.getUrl(baseUrl+"/slink/"+srt, true);
 		if(url != null) {
 			lngUrl = url.getLng();
 		}

@@ -29,12 +29,13 @@ public class UrlService {
 		return url;
 	}
 	
-	public Url getUrl(String srt) {
+	public Url getUrl(String srt, boolean count_flag) {
 		Optional<Url> o = repo.findById(srt);
 		if(o.isPresent()) {
 			Url url = o.get();
 			System.out.println(url);
-			url.setCount(url.getCount()+1);
+			if(count_flag)
+				url.setCount(url.getCount()+1);
 			repo.save(url);
 			return url;
 		}

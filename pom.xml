@@ -61,14 +61,13 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<configuration>
 					<image>
-<<<<<<< HEAD
-						<name>unstoppableshuvo/mmv2-${project.artifactId}:${project.version}</name>
-=======
+
+
 						<name>unstoppableshuvo/urlbuilder-${project.artifactId}:${project.version}</name>
->>>>>>> d16d6a653bd5f70837e072ed5f8d9a545a498d5c
+
 					</image>
 					<pullPolicy>IF_NOT_PRESENT</pullPolicy>
-				</configuration>	
+				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
